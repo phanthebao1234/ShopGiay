@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "animate.css": "^4.1.1",
+    "jquery": "^3.6.1",
+    "readmore-js": "^2.2.1",
+    "sweetalert2": "^11.4.33"
+  }
+}
