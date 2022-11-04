@@ -23,5 +23,7 @@
         case 'input_address':
             include 'View/inputAddress.php';
             break;
+        case 'contact':
+            include 'View/contact.php';
     }
 ?>

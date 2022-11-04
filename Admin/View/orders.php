@@ -28,6 +28,7 @@
                     <th>Số điện thoại</th>
                     <th>Tên Sản Phẩm</th>
                     <th>Số Lượng</th>
+                    <th>Size</th>
                     <th>Ngày đặt</th>
                     <th>Địa chỉ</th>
                     <th>Tổng tiền</th>
@@ -57,6 +58,7 @@
                         <td><?php echo $set['order_phonenumber'] ?></td>
                         <td><?php echo $set['order_tensanpham'] ?></td>
                         <td><?php echo $set['order_quantity'] ?></td>
+                        <td><?php echo $set['order_option'] ?></td>
                         <td><?php echo $set['order_ngaydat'] ?></td>
                         <td><?php echo $set['order_address'] ?></td>
                         <td><?php echo number_format($set['order_total']) ?>đ</td>

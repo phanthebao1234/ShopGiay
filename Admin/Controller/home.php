@@ -9,7 +9,7 @@
             include 'View/importImage.php'; 
             break;
         case 'home':
-            include 'View/home.php';
+            include 'View/dashboard.php';
             break;
         case 'chart':
             include 'View/dashboard.php';

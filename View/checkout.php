@@ -44,8 +44,13 @@
                                 <td>
                                     <?php 
                                         $address = new Address();
-                                        $result = $address->getDetailAddress($customer_code_address);
-                                        echo $customer_address.', '.$result['address'];
+                                        if ($customer_code_address != "") {
+                                            # code...
+                                            $result = $address->getDetailAddress($customer_code_address);
+                                            echo $customer_address.', '.$result['address'];
+                                        } else {
+                                            echo "Chưa có địa chỉ";
+                                        }
                                     ?>
                                 </td>
                             </tr>

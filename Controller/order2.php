@@ -57,25 +57,28 @@
                     }
                 }
                 $voucher_sale = 0;
-                if(isset($_POST['voucher_code'])) {
+                if(isset($_POST['voucher_code']) && $_POST['voucher_code'] != '') {
                     $voucher_code = $_POST['voucher_code'];
-                }
-                $voucher = new Voucher();
-                $result = $voucher-> getVoucher($voucher_code);
-                if(!isset($result)) {
-                    echo '<script>alert("Mã voucher không chính xác")</script>';
-                } else {
-                    $voucher_sale = $result['voucher_sale'];
-                    $voucher_count= $result['voucher_count'];
-                    
-                    if($voucher_count == 0) {
-                        echo '<script>alert("Voucher đã hết lượt sử dụng")</script>';
-                        $_SESSION['total'] = getTotal(0, $giamtt);
+                    $voucher = new Voucher();
+                    $result = $voucher-> getVoucher($voucher_code);
+                    if(!isset($result)) {
+                        echo '<script>alert("Mã voucher không chính xác")</script>';
                     } else {
-                        $voucher -> updateCountVoucher($voucher_code);
-                        $_SESSION['total'] = getTotal($voucher_sale, $giamtt, $result['voucher_type']);
+                        $voucher_sale = $result['voucher_sale'];
+                        $voucher_count= $result['voucher_count'];
+                        
+                        if($voucher_count == 0) {
+                            echo '<script>alert("Voucher đã hết lượt sử dụng")</script>';
+                            $_SESSION['total'] = getTotal(0, $giamtt);
+                        } else {
+                            $voucher -> updateCountVoucher($voucher_code);
+                            $_SESSION['total'] = getTotal($voucher_sale, $giamtt, $result['voucher_type']);
+                        }
                     }
-                }
+                } else {
+                    $_SESSION['total'] = getTotal(0, $giamtt);
+                } 
+                
                 echo '<meta http-equiv="refresh" content="0;url=./index.php?action=order2&act=pay"/>';
                 
             }
@@ -89,7 +92,7 @@
                 $_SESSION['bill_id'] = $bill_id;
                 $total = $_SESSION['total'];
                 foreach($_SESSION['cart'] as $key=>$item) {
-                    $bill->insertOrderDetail($bill_id,$item['product_id'],$item['product_quantity'],$_SESSION['total']);
+                    $bill->insertOrderDetail($bill_id,$item['product_id'],$item['product_quantity'],$_SESSION['total'], $item['product_size']);
                     $product -> updateProductAfterPay($item['product_id'], $item['product_quantity']);
                 }
                 $bill -> updateOrderTotal($bill_id, $total);
@@ -98,7 +101,7 @@
                 
             }
             break;
-           
+        
         case 'pay_action':
             $_SESSION['cart'] = [];
             $_SESSION['total'] = 0;
@@ -108,6 +111,9 @@
             break;
         case 'list_order':
             include 'View/listOrder.php';
+            break;
+        case 'momo':
+            include 'View/xulythanhtoanmomo.php';
             break;
         default:
             break;

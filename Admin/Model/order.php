@@ -67,6 +67,13 @@
             $result = $db -> getList($query);
             return $result;
         }
+        
+        public function getCountOrders() {
+            $db = new connect();
+            $query = "SELECT Count(*) as total FROM orders";
+            $result = $db -> getInstance($query);
+            return $result;
+        }
 
     }
 ?>

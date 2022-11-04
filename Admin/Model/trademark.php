@@ -43,6 +43,13 @@
             $query = "delete from trademark where trademark_id = $trademark_id";
             $db -> exec($query);
         }
+        
+        public function getCountTrademark() {
+            $db = new connect();
+            $query = "select count(*) as 'total' from trademark";
+            $result = $db -> getInstance($query);
+            return $result;
+        }
     }
 
 ?>

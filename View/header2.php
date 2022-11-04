@@ -101,7 +101,7 @@
                             <a class="nav-link <?php if(isset($_GET['act']) && $_GET['act'] == 'blog') echo 'text-danger'; ?>" href="index.php?action=blog&act=blog">Tin tức giày</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Liên hệ</a>
+                            <a class="nav-link" href="index.php?action=home&act=contact">Liên hệ</a>
                         </li>
                     </ul>
                 </div>

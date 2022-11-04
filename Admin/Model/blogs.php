@@ -133,5 +133,12 @@
             return $result;
         }
         
+        public function getCountBlog() {
+            $db = new connect();
+            $query = "select count(*) as 'total' from blogs";
+            $result = $db -> getInstance($query);
+            return $result;
+        }
+        
     }
 ?>

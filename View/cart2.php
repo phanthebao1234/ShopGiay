@@ -58,6 +58,7 @@
                                 <a class="" href="index.php?action=cart&act=delete&id=<?php echo $item['product_id'] ?>" onclick="return confirm('Bạn có chắc chắn xóa')"><i class="far fa-times fa-3x"></i></a>
                             </td>
                             <input type="hidden" name="product_cart" id="product_cart">
+                            
                         </form>
                     </tr>
                     <?php 

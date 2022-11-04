@@ -80,6 +80,9 @@
                 echo '<meta http-equiv="refresh" content="0;url=./index.php?action=auth"/>';
             }
             break;
+        case 'forgot':
+            include 'View/forgotpasswod.php';
+            break;
         default:
             // include 'View/login.php';
             if(isset($_SESSION['customer_id'])) {

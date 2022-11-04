@@ -27,7 +27,15 @@
                         </tr>
                     <tr>
                         <td colspan="2">Địa chỉ:  </td>
-                        <td colspan="2"><?php echo $result['customer_address'];?></td>
+                        <td colspan="2"><?php 
+                            $address = new Address();
+                            if($result['customer_code_address'] != null && $result['customer_code_address'] != "") {
+                                $resultString = $address->getDetailAddress($result['customer_code_address']);
+                                echo $result['customer_address'].', '.$resultString['address'];
+                            } else {
+                               echo "Địa chỉ chưa được cập nhât";
+                            } 
+                        ?></td>
                     </tr>
                     <tr>
                         <td colspan="2">Số điện thoại: </td>

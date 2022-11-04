@@ -85,5 +85,12 @@
             $result = $db -> getInstance($query);
             return $result;
         }
+        
+        public function getCountCustomer() {
+            $db = new connect();
+            $query = "SELECT Count(*) as 'total' FROM customers";
+            $result = $db -> getInstance($query);
+            return $result;
+        }
     }
 ?>

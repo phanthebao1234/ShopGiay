@@ -50,11 +50,11 @@
             </div>
             <div class="col-md-3">
                 <label for="city" class="form-label">Quận, Huyện, Xã <span class="text-danger">*</span></label>
-                <select class="form-select" id="city-dropdown" name="xa"></select>
+                <select class="form-select" id="city-dropdown" name="customer_code_address"></select>
             </div>
             <div class="col-md-3">
                 <label for="" class="form-label">Địa chỉ nhà<span class="text-danger">*</span></label>
-                <input type="text" class="form-control" name="diachi" id="diachi">
+                <input type="text" class="form-control" name="customer_address" id="customer_address">
             </div>
             <div class="col-md-6">
                 <label for="customer_phone" class="form-label">Số điện thoại<span class="text-danger">*</span></label>

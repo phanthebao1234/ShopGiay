@@ -11,10 +11,10 @@
             $result = $db->getInstance($select); 
             return $result[0]; 
         }
-        public function insertOrderDetail($bill_id, $id_sanpham, $quantity, $total) {
+        public function insertOrderDetail($bill_id, $id_sanpham, $quantity, $total, $size) {
             $db = new connect();
-            $query = "insert into bill_detail (bill_id, id_sanpham, quantity, total)
-            values ($bill_id, $id_sanpham, $quantity, $total)";
+            $query = "insert into bill_detail (bill_id, id_sanpham, quantity, total, size)
+            values ($bill_id, $id_sanpham, $quantity, $total, $size)";
             $db->exec($query);
         }
         public function updateOrderTotal($bill_id, $total) {
@@ -25,7 +25,7 @@
 
         public function getOrder($sohdid) {
             $db=new connect();
-            $select="select b.bill_id, a.customer_firstname ,a.customer_lastname,a.customer_address,a.customer_phonenumber,b.ngaydat from customers a 
+            $select="select b.bill_id, a.customer_firstname ,a.customer_lastname,a.customer_address,a.customer_phonenumber, a.customer_code_address ,b.ngaydat from customers a 
             inner join bill b on a.customer_id=b.customer_id where bill_id=$sohdid";
             // trả đúng thông tin của 1 khách hàng  getInstance
             $result=$db->getInstance($select);
@@ -53,8 +53,8 @@
 
         public function insertOrder($bill_id, $customer_id) {
             $db = new connect();
-            $query = "insert into orders (order_fullname, order_address, order_phonenumber, order_total, order_tensanpham, order_quantity)
-            select CONCAT(a.customer_firstname, ' ', a.customer_lastname) as fullname,a.customer_address,a.customer_phonenumber, c.total, sp.TenSanPham, c.quantity
+            $query = "insert into orders (order_fullname, order_address, order_phonenumber, order_total, order_tensanpham, order_quantity, order_option)
+            select CONCAT(a.customer_firstname, ' ', a.customer_lastname) as fullname,a.customer_address,a.customer_phonenumber, c.total, sp.TenSanPham, c.quantity, c.size
             from sanpham sp, (customers a inner join bill b on a.customer_id=b.customer_id)
             INNER JOIN bill_detail c on b.bill_id = c.bill_id
             where b.customer_id = $customer_id

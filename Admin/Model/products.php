@@ -94,5 +94,12 @@
             $query = "update sanpham set LoaiGiamGia='$sale_type', GiaGiam='$sale_value' where ThuongHieu='$trademark_id'";
             $db->exec($query);
         }
+        
+        public function getCountProduct() {
+            $db = new connect();
+            $query = "select count(*) as 'total' from sanpham";
+            $result = $db -> getInstance($query);
+            return $result;
+        }
     }
 ?>

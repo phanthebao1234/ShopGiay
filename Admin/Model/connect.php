@@ -4,9 +4,9 @@ class connect
 	var $db=null;
 	public function __construct() 
 	{
-		$dsn='mysql:host=sql12.freesqldatabase.com;dbname=sql12534834';
-		$user='sql12534834';
-		$pass='Bgr2ZvQ5qS';
+		$dsn='mysql:host=181.215.242.74;dbname=giayshop;port=18854';
+		$user='admin';
+		$pass='WAqArjVr';
 		$this->db=new PDO($dsn,$user,$pass,array(PDO::MYSQL_ATTR_INIT_COMMAND=>"SET NAMES utf8"));
 		$this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 

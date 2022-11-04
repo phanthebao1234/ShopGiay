@@ -1,5 +1,6 @@
 <?php
     include 'Model/cart.php';
+    require 'vendor/autoload.php';
     set_include_path(get_include_path().PATH_SEPARATOR.'Model/');
     spl_autoload_extensions('.php');// phần mở rộng
     spl_autoload_register();

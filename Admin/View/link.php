@@ -22,9 +22,9 @@ href="https://kit-pro.fontawesome.com/releases/v5.12.0/css/pro.min.css"
 <link rel="stylesheet" href="../../node_modules/sweetalert2/dist/sweetalert2.min.css">
 <!-- <link rel="stylesheet" href="../Content/css/bootstrap-tagsinput.css"> -->
 
+<!-- Link animated -->
+<link rel="stylesheet" href="../../node_modules/animate.css/animate.min.css">
+
 <!-- Link Data table  -->
 <link rel="stylesheet" href="../Content/css/datatables.min.css">
 <link rel="stylesheet" href="../Content/css/style.css">
-
-<!-- Link animated -->
-<link rel="stylesheet" href="../../node_modules/animate.css/animate.min.css">
