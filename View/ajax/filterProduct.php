@@ -42,7 +42,14 @@ $filterTradeMark = isset($_POST['filterTrademark']) ? trim($_POST['filterTradema
     } else if($filterTradeMark != "") {
         $results = $product -> filterTradeMark($filterTradeMark);
     } else {
-        $results = $product -> getListProducts();   
+        $limit = 12;  
+        if (isset($_GET["page"])) { 
+            $page  = $_GET["page"]; 
+        } else { 
+            $page=1; 
+        };  
+        $start_from = ($page-1) * $limit;  
+        $results = $product -> getProductPageLimit($start_from, $limit);    
     } 
     while ($set = $results->fetch()) :
     ?>

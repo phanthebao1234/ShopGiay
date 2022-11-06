@@ -1,6 +1,12 @@
+<?php
+  $sanpham = new Products();
+  $limit = 8;
+  $total_records = $sanpham->getTotalPages();
+  $total_pages = ceil($total_records['total'] / $limit);
+?>
 <div class="container-fluid my-5">
   <div class="mx-3 row">
-    <div class="col-3 filter">
+    <div class="col-lg-3 d-none d-lg-block d-xl-block d-md-block filter">
       <div class="filter_price">
         <h4 class="fw-bold">Giá</h4>
         <form action="" id="filter_price">
@@ -56,7 +62,7 @@
         <?php endwhile ?>
       </div>
     </div>
-    <div class="col-9">
+    <div class="col-lg-9 col-sm-12">
       <div class="d-flex justify-content-between">
         <?php
           if (isset($_GET['act']) && $_GET['act'] == 'giayconhantao') {
@@ -92,25 +98,25 @@
       </div>
       <div class="list my-3 row" id="data"> 
         <?php
-        $sanpham = new Products();
-        if (isset($_GET['act']) && $_GET['act'] == 'giayconhantao') {
-          $results = $sanpham->getListProductWithMenu(6);
-        } else if (isset($_GET['act']) && $_GET['act'] == 'giayfutsal') {
-          $results = $sanpham->getListProductWithMenu(7);
-        } else if(isset($_GET['trademark'])) {
-          $results = $sanpham->getListProductWithTrademark($_GET['trademark']);
-        } else if(isset($_GET['search'])) {
-          $keyword = $_POST['keyword'];
-          $results = $sanpham -> search($keyword);
-          $countValue =  $results->rowCount();
-          if($countValue <= 0) {
-            echo '<p>Không tìm thấy sản phẩm nào phù hợp</p>';
+        
+          if (isset($_GET['act']) && $_GET['act'] == 'giayconhantao') {
+            $results = $sanpham->getListProductWithMenu(6);
+          } else if (isset($_GET['act']) && $_GET['act'] == 'giayfutsal') {
+            $results = $sanpham->getListProductWithMenu(7);
+          } else if(isset($_GET['trademark'])) {
+            $results = $sanpham->getListProductWithTrademark($_GET['trademark']);
+          } else if(isset($_GET['search'])) {
+            $keyword = $_POST['keyword'];
+            $results = $sanpham -> search($keyword);
+            $countValue =  $results->rowCount();
+            if($countValue <= 0) {
+              echo '<p>Không tìm thấy sản phẩm nào phù hợp</p>';
+            }
           }
-        }
-        else {
-          $results = $sanpham->getListProducts();
-        } 
-        while ($set = $results->fetch()) :
+          else {
+            $results = $sanpham->getListProducts();
+          } 
+          while ($set = $results->fetch()) :
         ?>
           <a href="index.php?action=home&act=detail&id=<?php echo $set['id_sanpham'] ?>" class="card col-lg-3 col-md-4 g-4 border-0 h-100 list-item text-decoration-none">
             <img src="../Content/images/<?php echo $set['Thumbnail'] ?>" class="card-img-top" alt="...">
@@ -127,6 +133,25 @@
           </a>
         <?php endwhile; ?>
       </div>
+      <ul class="pagination">
+        <?php 
+          if(!empty($total_pages)){
+            for($i=1; $i<=$total_pages; $i++){
+                if($i == 1){
+                  ?>
+                <li class="pageitem active" id="<?php echo $i;?>"><a href="JavaScript:void(0);" data-id="<?php echo $i;?>" class="page-link" ><?php echo $i;?></a></li>
+                              
+                <?php 
+                }
+                else{
+                  ?>
+                <li class="pageitem" id="<?php echo $i;?>"><a href="JavaScript:void(0);" class="page-link" data-id="<?php echo $i;?>"><?php echo $i;?></a></li>
+                <?php
+                }
+            }
+          }
+          ?>
+        </ul>
     </div>
   </div>
 </div>
@@ -204,5 +229,25 @@
       }
     })
   }
+  
+  // $("#data").load("pagination.php?page=1");
+  $(".page-link").click(function(){
+    var id = $(this).attr("data-id");
+    var select_id = $(this).parent().attr("id");
+    $.ajax({
+      url: "View/ajax/filterProduct.php",
+      type: "GET",
+      data: {
+        page : id
+      },
+      cache: false,
+      success: function(dataResult){
+        $("#data").html(dataResult);
+        $(".pageitem").removeClass("active");
+        $("#"+select_id).addClass("active");
+        
+      }
+    });
+		});
 
 </script>

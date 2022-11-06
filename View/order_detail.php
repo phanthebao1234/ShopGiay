@@ -33,8 +33,8 @@
         </div>
     </form>
     
-    <form action="View/xulythanhtoanmomo.php" enctype="application/x-www-form-urlencoded" method="post" target="_blank">
+    <!-- <form action="View/xulythanhtoanmomo.php" enctype="application/x-www-form-urlencoded" method="post" target="_blank">
         <input type="submit" value="Thanh toasn momo">
         <input type="hidden" name="amout" value="20000">
-    </form>
+    </form> -->
 </div>

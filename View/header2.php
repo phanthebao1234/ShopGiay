@@ -5,7 +5,7 @@
                 <img src="../Content/images/logo.png" width="240" height="auto" alt="Giày đá bóng chính hãng">
             </a>
         </div>
-        <div class="header_main-center">
+        <div class="header_main-center d-none d-lg-block d-xl-block d-md-block">
             <form action="index.php?action=home&act=sanpham&search" method="POST">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" name="keyword" placeholder="Bạn đang tìm kiếm ..." aria-describedby="button-addon2">
@@ -65,6 +65,9 @@
     <div class="header_menu">
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars fw-bold"></i>
+            </button>
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav">
                         <li class="nav-item">

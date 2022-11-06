@@ -153,6 +153,9 @@ $menu_name = $result['menu_name'];
                 <li class="view-desc" onclick="clickMenu(this, 'advice')">
                     <p>lời khuyên chọn giày</p>
                 </li>
+                <li class="view-desc" onclick="clickMenu(this, 'comment')">
+                    <p>Bình luận</p>
+                </li>
             </ul>
         </div>
         <div class="detail_info-text">
@@ -160,6 +163,7 @@ $menu_name = $result['menu_name'];
             </div>
         </div>
     </div>
+
 </div>
 
 <script src="../node_modules/readmore-js/readmore.min.js"></script>
@@ -170,6 +174,63 @@ $menu_name = $result['menu_name'];
         collapsedHeight: 200
     });
     var product_info = `<?php echo $product_info ?>`;
+    var text_comment = `
+        <div>
+            <?php 
+                if(isset($_SESSION['customer_id'])):
+            ?>  
+            
+            <form method="post" action="index.php?action=comment&act=post_comment">
+                <div class="d-flex flex-row align-items-start">
+                    <img class="rounded-circle" src="../Content/images/noimagesuser.png" style="width: 40px">
+                        <textarea class="form-control ml-1 shadow-none textarea" id="editor" name="comment_content" rows="5"></textarea>
+                        <input type="hidden" name="customer_id" value="<?php echo $_SESSION['customer_id']; ?>" />
+                        <input type="hidden" name="id_sanpham" value="<?php echo $product_id; ?>" />
+                </div>
+                <button type="submit">Đăng bình luận</button>
+            </form>
+            <?php 
+                else:
+            ?>
+                <a href="index.php?action=auth&act=login">Vui lòng đăng nhập</a>
+            <?php endif; ?>
+            <hr>
+            <div class="row">
+            <?php 
+                $comment = new Comment();
+                $result = $comment-> getListCommentProduct($product_id);
+                while ($set = $result->fetch()):
+
+            ?>
+                <div class="col-md-8">
+                    <div class="d-flex flex-column comment-section">
+                        <div class="bg-white p-2">
+                            <div class="d-flex flex-row user-info">
+                                <!-- Chỗ image có thể load hình của từng customer -->
+                                <img class="rounded-circle" src="../Content/images/noimagesuser.png" style="width: 40px"> 
+                                <div class="d-flex flex-column justify-content-start mx-2">
+                                    <span class="d-block font-weight-bold name"><?php echo $set['fullname'] ?></span>
+                                    <span class="date text-black-50"><?php echo $set['created_at'] ?></span>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <p class="comment-text">
+                                    <?php  echo $set['comment_content']?>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="bg-white">
+                            <div class="d-flex flex-row fs-12">
+                                <div class="like p-2 cursor btn btn-outline-primary"><i class="fa fa-thumbs-o-up"></i><span class="ml-1">Like</span></div>
+                                <div class="like p-2 cursor"><i class="fa fa-commenting-o"></i><span class="ml-1">Comment</span></div>
+                                <div class="like p-2 cursor"><i class="fa fa-share"></i><span class="ml-1">Share</span></div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            <?php endwhile; ?>
+        </div>`;
     var text_advice = `<p>Gi&agrave;y đ&aacute; banh ch&iacute;nh h&atilde;ng l&agrave; một sản phẩm với c&ocirc;ng năng ri&ecirc;ng biệt, chuy&ecirc;n d&agrave;nh cho những&nbsp;trận thi đấu b&oacute;ng đ&aacute;, từ đ&oacute; m&agrave; vật liệu, thiết kế v&agrave; c&aacute;ch thi c&ocirc;ng gi&agrave;y&nbsp;cũng rất ri&ecirc;ng, kh&aacute;c với những d&ograve;ng sản phẩm gi&agrave;y th&ocirc;ng thường. Vậy n&ecirc;n để c&oacute; được trải nghiệm "tr&ecirc;n ch&acirc;n" tốt nhất, đặc biệt l&agrave; với những anh em chưa c&oacute; nhiều kinh nghiệm trong việc chọn một đ&ocirc;i gi&agrave;y đ&aacute; banh ph&ugrave; hợp với m&igrave;nh,&nbsp;th&igrave; anh em c&oacute; thể theo một số lời khuy&ecirc;n của ThanhHung Futsal như sau:</p>
             <p><strong>1. Khi chọn size gi&agrave;y, anh em n&ecirc;n chọn size m&agrave; khi mang v&agrave;o th&igrave; phần mũi gi&agrave;y v&agrave; mũi ch&acirc;n sẽ&nbsp;vừa với nhau&nbsp;( hoặc dư mũi khoảng&nbsp;0.5cm hoặc dư &iacute;t hơn tuỳ v&agrave;o cảm gi&aacute;c của anh em).</strong></p>
             <p><img style="height: 640px; width: 1280px;" src="https://file.hstatic.net/200000278317/file/trang-break-in-giay-2_8b96a8d5d72d462685947682b1963ea2.jpg" width="600" height="600" data-src="//file.hstatic.net/200000278317/file/trang-break-in-giay-2_8b96a8d5d72d462685947682b1963ea2.jpg"></p>
@@ -220,13 +281,26 @@ $menu_name = $result['menu_name'];
             case 'advice':
                 defualtext.innerHTML = text_advice;
                 break;
+            case 'comment':
+                defualtext.innerHTML = text_comment;
+                break;
             default:
                 defualtext.innerHTML = `<?php echo $product_info ?>`;
                 break;
         }
     }
     $('document').ready(function() {
-
+        tinymce.init({
+            selector: '#comment',
+            plugins: [
+                'a11ychecker', 'advlist', 'advcode', 'advtable', 'autolink', 'checklist', 'export',
+                'lists', 'link', 'image', 'charmap', 'preview', 'anchor', 'searchreplace', 'visualblocks',
+                'powerpaste', 'fullscreen', 'formatpainter', 'insertdatetime', 'media', 'table', 'help', 'wordcount'
+            ],
+            width: "900",
+            height: "300",
+            toolbar: 'undo redo | a11ycheck casechange blocks | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist checklist outdent indent | removeformat | code table help'
+        });
 
         var menu = $('#view-desc');
         menu.on('click', function() {
@@ -362,5 +436,32 @@ $menu_name = $result['menu_name'];
         } else {
             return true;
         }
+    }
+    
+    $('#post-comment').click(function () {
+        console.log("hello ");
+        tinyMCE.triggerSave();
+        var form = $('#form_comment')[0];
+        var data = new FormData(form);
+        $.ajax({
+            type: "POST",
+            url: 'index.php?action=comment&act=post_comment',
+            data: data,
+            processData: false,
+            contentType: false,
+            cache: false,
+            async: false,
+            success: function (data) {
+                alert("Đăng bình luận thành công")
+            }
+        })
+    })
+    var buttonComment = document.getElementById("post-comment")
+    if (buttonComment) {
+        buttonComment.addEventListener("click", function() {
+            console.log("hello ");
+        })
+    } else {
+        console.log("Khong ton tai");
     }
 </script>

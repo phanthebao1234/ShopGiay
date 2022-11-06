@@ -2,6 +2,7 @@
     rel="stylesheet"
     href="https://kit-pro.fontawesome.com/releases/v5.12.0/css/pro.min.css"
 />
+<script src="https://cdn.tiny.cloud/1/lr1kmk05jpis1aldhamlyue1fk0s8utdunsv7wjlmac1dzk5/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 <!-- GetBootstrap Link -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <link rel="stylesheet" href="Content/css/bootstrap.min.css">
@@ -24,6 +25,9 @@
 
 <!-- Link Animate -->
 <link rel="stylesheet" href="../node_modules/animate.css/animate.min.css">
+
+<!-- Link tinymce -->
+
 
 <!-- Link css -->
 <link rel="stylesheet" href="Content/css/style.css">

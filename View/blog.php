@@ -22,16 +22,3 @@
         </div>
     </div>
 </div>
-<script>
-    // var title = document.getElementsByClassName('title');
-    // for (let i = 0; i < title.length; i++) {
-    //     const element = title[i].title;
-    //     console.log(element)
-    //     const spliceStr = element.substring(0, 40)
-    //     console.log(spliceStr);
-    //     document.getElementById("blog_title").innerHTML = spliceStr;
-    // }
-    // function spliceString(str) {
-        
-    // }
-</script>

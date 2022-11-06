@@ -19,7 +19,24 @@
             values ('$comment_content', $id_sanpham, $customer_id)";
             $db -> exec($query);
         }
-
+        
+        public function postCommentBlog($comment_content, $blog_id, $customer_id) {
+            $db = new connect();
+            $query = "insert into comments (comment_content, id_blog, customer_id)
+            values ('$comment_content', $blog_id, $customer_id)";
+            $db -> exec($query);
+        }
+        
+        public function getListCommentBlog($id_blog) {
+            $db = new connect();
+            $query = "select b.comment_id, CONCAT(a.customer_firstname, ' ', a.customer_lastname) as fullname, a.customer_phonenumber, b.created_at, b.comment_content
+            from blogs bl, (customers a inner join comments b on a.customer_id=b.customer_id)
+            where b.id_blog = '$id_blog'
+            AND bl.blog_id = b.id_blog
+            ORDER BY b.created_at DESC";
+            $result = $db -> getList($query);
+            return $result;
+        }
         
     }
 ?>

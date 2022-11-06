@@ -83,6 +83,22 @@
             $result = $db -> getList($query);
             return $result;
         }
-
+        
+        
+        // Phân trang 
+        
+        public function getTotalPages() {
+            $db = new connect();
+            $query = "select count(*) as 'total' from sanpham";
+            $result = $db -> getInstance($query);
+            return $result;
+        }
+        
+        public function getProductPageLimit($start, $limit) {
+            $db = new connect();
+            $query = "select * from sanpham order by TenSanPham ASC LIMIT $start, $limit";
+            $results = $db-> getList($query);
+            return $results;
+        }
     }
 ?>
