@@ -4,10 +4,11 @@ class connect
 	var $db=null;
 	public function __construct() 
 	{
+		
 		// Data on production
-		$dsn='mysql:host=181.215.242.74;dbname=giayshop;port=18854';
+		$dsn='mysql:host=68.64.164.97;dbname=giayshop;port=10171';
 		$user='admin';
-		$pass='WAqArjVr';
+		$pass='g9rRHkDx';
 		
 		// Database local
 		// $dsn='mysql:host=localhost;dbname=giayshop';
